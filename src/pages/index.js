@@ -13,7 +13,6 @@ const BlogIndex = ({ data, location }) => {
     return (
       <Layout location={location} title={siteTitle}>
         <Seo title="All posts" />
-        <Bio />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -30,6 +29,7 @@ const BlogIndex = ({ data, location }) => {
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
+          console.log("FRONTMATTER: ", post.frontmatter)
 
           return (
             <li key={post.fields.slug}>
@@ -44,6 +44,7 @@ const BlogIndex = ({ data, location }) => {
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
+                  <small>{post.frontmatter.author}</small>
                   <small>{post.frontmatter.date}</small>
                 </header>
                 <section>
@@ -79,6 +80,10 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
+          author {
+            id
+            name
+          }
           date(formatString: "MMMM DD, YYYY")
           title
           description

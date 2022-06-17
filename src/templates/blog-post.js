@@ -7,11 +7,12 @@ import Seo from "../components/seo"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata?.title || `Title`
+  console.log("FRONTMATTER: ", post.frontmatter)
+  console.log("AUTHOR FROM POST FILE: ", post.frontmatter.author)
   const { previous, next } = data
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
@@ -31,7 +32,7 @@ const BlogPostTemplate = ({ data, location }) => {
         />
         <hr />
         <footer>
-          <Bio />
+          <Bio author={post.frontmatter.author}/>
         </footer>
       </article>
       <nav className="blog-post-nav">
@@ -72,17 +73,21 @@ export const pageQuery = graphql`
     $previousPostId: String
     $nextPostId: String
   ) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     markdownRemark(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
       html
       frontmatter {
         title
+        author {
+          name
+          title
+          image {
+            childImageSharp {
+              gatsbyImageData(width: 70)
+            }
+          }
+        }
         date(formatString: "MMMM DD, YYYY")
         description
       }

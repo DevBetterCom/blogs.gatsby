@@ -56,6 +56,24 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+  //   // Define a template for authors
+  // const authorTemplate = path.resolve(`./src/templates/author.js`)
+
+  // // manually map author routes
+  // let authorIds = ["ardalis"]
+
+  // authorIds.forEach(id => {
+  //   const authorPath = `/author/${id}/`
+
+  //   createPage({
+  //     path: authorPath,
+  //     component: authorTemplate,
+  //     context: {
+  //       id,
+  //     },
+  //   })
+  // })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -83,18 +101,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   // blog posts are stored inside "content/blog" instead of returning an error
   createTypes(`
     type SiteSiteMetadata {
-      author: Author
       siteUrl: String
-      social: Social
-    }
-
-    type Author {
-      name: String
-      summary: String
-    }
-
-    type Social {
-      twitter: String
     }
 
     type MarkdownRemark implements Node {
