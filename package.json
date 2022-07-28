@@ -8,6 +8,8 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.5",
+    "bootstrap": "^5.2.0",
     "gatsby": "^4.15.2",
     "gatsby-plugin-feed": "^4.15.1",
     "gatsby-plugin-gatsby-cloud": "^4.15.0",

@@ -57,23 +57,23 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     })
   }
 
-  //   // Define a template for authors
-  // const authorTemplate = path.resolve(`./src/templates/author.js`)
+  // Define a template for authors
+  const authorTemplate = path.resolve(`./src/templates/author.js`)
 
-  // // manually map author routes
-  // let authorIds = ["ardalis"]
+  // manually map author routes
+  let authorIds = ["ardalis"]
 
-  // authorIds.forEach(id => {
-  //   const authorPath = `/author/${id}/`
+  authorIds.forEach(id => {
+    const authorPath = `/author/${id}/`
 
-  //   createPage({
-  //     path: authorPath,
-  //     component: authorTemplate,
-  //     context: {
-  //       id,
-  //     },
-  //   })
-  // })
+    createPage({
+      path: authorPath,
+      component: authorTemplate,
+      context: {
+        id,
+      },
+    })
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
