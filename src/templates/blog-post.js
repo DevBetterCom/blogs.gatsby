@@ -1,5 +1,9 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+
+import {
+  graphql,
+  Link,
+} from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -7,8 +11,6 @@ import Seo from "../components/seo"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
-  console.log("FRONTMATTER: ", post.frontmatter)
-  console.log("AUTHOR FROM POST FILE: ", post.frontmatter.author)
   const { previous, next } = data
 
   return (
@@ -81,7 +83,6 @@ export const pageQuery = graphql`
         title
         author {
           name
-          title
           image {
             childImageSharp {
               gatsbyImageData(width: 70)

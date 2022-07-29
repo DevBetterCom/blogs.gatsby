@@ -8,7 +8,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
 
   // Get all markdown blog posts sorted by date
-  const result = await graphql(
+  const blogResult = await graphql(
     `
       {
         allMarkdownRemark(
@@ -26,15 +26,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     `
   )
 
-  if (result.errors) {
+  if (blogResult.errors) {
     reporter.panicOnBuild(
       `There was an error loading your blog posts`,
-      result.errors
+      blogResult.errors
     )
     return
   }
 
-  const posts = result.data.allMarkdownRemark.nodes
+  const posts = blogResult.data.allMarkdownRemark.nodes
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -61,11 +61,36 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const authorTemplate = path.resolve(`./src/templates/author.js`)
 
   // manually map author routes
-  let authorIds = ["ardalis"]
+  const authorResult = await graphql(
+    `
+      {
+        allAuthorYaml(
+          sort: { fields: [name], order: ASC }
+          limit: 1000
+        ) {
+          nodes {
+            name,
+            yamlId
+          }
+        }
+      }
+    `
+  )
 
-  authorIds.forEach(id => {
+  if (authorResult.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your Authors`,
+      authorResult.errors
+    )
+    return
+  }
+
+  const authors = authorResult.data.allAuthorYaml.nodes
+
+  authors.forEach(author => {
+    const id = author.yamlId
     const authorPath = `/author/${id}/`
-
+    
     createPage({
       path: authorPath,
       component: authorTemplate,
