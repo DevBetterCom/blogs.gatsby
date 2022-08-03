@@ -2,11 +2,19 @@
   name: Steve Smith
   bio: Steve has over 20 years of experience building custom software solutions using Microsoft technologies, and speaks internationally to software developers about ASP.NET, domain-driven design, design patterns, SOLID programming principles, and how to improve quality through refactoring. You can learn more about Steve by reading his blog, following him on twitter, or viewing his courses on Pluralsight.
   image: ../../src/images/authors/SteveSmith.jpg
-- id: kyle
-  name: Kyle McMaster
-  bio: Kyle is a passionate craftsman with nearly a decade of experience in software development. He enjoys contributing to OSS projects and tinkering with the latest Azure offerings, .NET features, and front end frameworks. He values strong communication, mentorship, and pair programming practices alongside design patterns, test-driven development, and clean architecture principles.
-  image: ../../src/images/authors/KyleMcMaster.jpg
 - id: coop
   name: Jeremiah Cooper
   bio: Jeremiah has over a decade of professional software development, spanning a wide variety of languages and frameworks as well as the DevOps pipeline. He really enjoys learning new things and honing his craft with side projects, including a game he's been working on for a few years.  He's a strong proponent of test-driven development, pair programming, refactoring, and continuous integration / deployment.
   image: ../../src/images/authors/JeremiahCooper.jpg
+- id: eric
+  name: Eric Fleming
+  bio: Eric has over a decade of experience in the software industry primarily leveraging the ASP.NET stack, along with various cloud technologies from Azure and AWS. He's passionate about practicing SOLID programming principles, test-driven development, improving quality through refactoring and most of all - helping teams become more successful.
+  image: ../../src/images/authors/EricFleming.png
+- id: kyle
+  name: Kyle McMaster
+  bio: Kyle is a passionate craftsman with nearly a decade of experience in software development. He enjoys contributing to OSS projects and tinkering with the latest Azure offerings, .NET features, and front end frameworks. He values strong communication, mentorship, and pair programming practices alongside design patterns, test-driven development, and clean architecture principles.
+  image: ../../src/images/authors/KyleMcMaster.jpg
+- id: snowfrog
+  name: Philippe Vaillancourt
+  bio: Phil likes to code. Phil likes to read. Phil likes to read about code. Occasionally, Phil also writes about code.
+  image: ../../src/images/authors/PhilVaillancourt.jpg

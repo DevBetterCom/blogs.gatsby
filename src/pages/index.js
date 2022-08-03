@@ -118,7 +118,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allAuthorYaml(sort: { fields: [name], order: DESC }) {
+    allAuthorYaml(sort: { fields: [name], order: ASC }) {
       nodes {
         id
         name
