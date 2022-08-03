@@ -39,9 +39,7 @@ Add any images you reference in the folder. You can reference them in your markd
 
 Example image:
 
-[![Introducing NimblePros](https://blog.nimblepros.com/static/eac94d86b6885e70dbd46adfa6da5e84/db890/introducing-nimblepros.webp)](https://blog.nimblepros.com/static/eac94d86b6885e70dbd46adfa6da5e84/db890/introducing-nimblepros.webp)
-
-Use other interesting images for most articles; reserve the NimblePros background image for company announcements, etc.
+[![Announging the devBetter Blog](https://raw.githubusercontent.com/DevBetterCom/blogs.gatsby/7d320d57ed92f858a86ebe1a395c15117c243997/content/blog/hello-world/announcing-the-devbetter-blog.png)](https://raw.githubusercontent.com/DevBetterCom/blogs.gatsby/7d320d57ed92f858a86ebe1a395c15117c243997/content/blog/hello-world/announcing-the-devbetter-blog.png)
 
 ## Add a new Author
 
