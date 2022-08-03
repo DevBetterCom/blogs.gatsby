@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "devbetter-blog",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "Software Developer Career Coaching",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/DevBetterCom/blogs.gatsby"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",

@@ -17,16 +17,14 @@ const Layout = ({ location, title, children }) => {
           </a>
         </li>
         <li class="nav-item mt-1">
-          <a href="#" class="nav-link active" aria-current="page">
+          <a href={rootPath} class="nav-link active" aria-current="page">
             Blog
           </a>
         </li>
       </ul></header>
       <main>{children}</main>
       <footer className="text-center">
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+        © {new Date().getFullYear()}, devBetter; All Rights Reserved.
       </footer>
     </div>
   )

@@ -76,9 +76,13 @@ const BlogIndex = ({ data, location }) => {
               const id = author.yamlId
 
               return (
-                <Link to={'author/' + id} itemProp="url">
-                <span itemProp="">{name}</span>
-              </Link>
+                <div className="row">
+                  <div className="col-12">
+                    <Link to={"author/" + id} itemProp="url">
+                      <span itemProp="">{name}</span>
+                    </Link>
+                  </div>
+                </div>
               )
             })}
           </div>
