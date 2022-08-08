@@ -7,7 +7,7 @@ import {
 
 const Bio = ({ author = {} }) => {
   console.log("AUTHOR", author)
-  const { name, title } = author
+  const { name } = author
   const image = getImage(author.image)
 
   return (

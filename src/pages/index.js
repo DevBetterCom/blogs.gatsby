@@ -58,11 +58,11 @@ const BlogIndex = ({ data, location }) => {
                               alt="Article"
                               backgroundColor={false}
                             />
+                            <h2 className="text-primary">
+                              <span itemProp="headline">{title}</span>
+                            </h2>
                           </Link>
                         </div>
-                        <h2 className="text-primary">
-                          <span itemProp="headline">{title}</span>
-                        </h2>
                       </div>
                       <small>{post.frontmatter.author.name} </small>
                       <small>{post.frontmatter.date}</small>
