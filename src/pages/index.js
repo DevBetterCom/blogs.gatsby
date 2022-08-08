@@ -129,7 +129,7 @@ export const pageQuery = graphql`
           description
           featuredImage {
             childImageSharp {
-              gatsbyImageData(width: 450)
+              gatsbyImageData(width: 667)
             }
           }
           title
