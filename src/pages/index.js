@@ -4,6 +4,10 @@ import {
   graphql,
   Link,
 } from "gatsby"
+import {
+  GatsbyImage,
+  getImage,
+} from "gatsby-plugin-image"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -36,21 +40,30 @@ const BlogIndex = ({ data, location }) => {
           <ol style={{ listStyle: `none` }}>
             {posts.map(post => {
               const title = post.frontmatter.title || post.fields.slug
-              console.log("FRONTMATTER: ", post.frontmatter)
 
               return (
                 <li key={post.fields.slug}>
                   <article
-                    className="post-list-item"
+                    className="post-list-item text-center"
                     itemScope
                     itemType="http://schema.org/Article"
                   >
                     <header>
-                      <h2 className="text-primary">
-                        <Link to={post.fields.slug} itemProp="url">
-                          <span itemProp="headline">{title}</span>
-                        </Link>
-                      </h2>
+                      <div className="row">
+                        <div className="col-12 p-2">
+                          <Link to={post.fields.slug} itemProp="url">
+                            <GatsbyImage
+                              className="w-full mb-2"
+                              image={getImage(post.frontmatter.featuredImage)}
+                              alt="Article"
+                              backgroundColor={false}
+                            />
+                            <h2 className="text-primary">
+                              <span itemProp="headline">{title}</span>
+                            </h2>
+                          </Link>
+                        </div>
+                      </div>
                       <small>{post.frontmatter.author.name} </small>
                       <small>{post.frontmatter.date}</small>
                     </header>
@@ -113,8 +126,13 @@ export const pageQuery = graphql`
             name
           }
           date(formatString: "MMMM DD, YYYY")
-          title
           description
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData(width: 667)
+            }
+          }
+          title
         }
       }
     }

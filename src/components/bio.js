@@ -6,8 +6,8 @@ import {
 } from "gatsby-plugin-image"
 
 const Bio = ({ author = {} }) => {
-  console.log("AUTHOR",  author)
-  const { name, title } = author
+  console.log("AUTHOR", author)
+  const { name } = author
   const image = getImage(author.image)
 
   return (
@@ -25,7 +25,7 @@ const Bio = ({ author = {} }) => {
       />
       {name && (
         <p>
-          <strong>{name}</strong>, {title}
+          <strong>{name}</strong>
         </p>
       )}
     </div>

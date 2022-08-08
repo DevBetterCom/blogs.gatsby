@@ -4,6 +4,10 @@ import {
   graphql,
   Link,
 } from "gatsby"
+import {
+  GatsbyImage,
+  getImage,
+} from "gatsby-plugin-image"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -25,8 +29,18 @@ const BlogPostTemplate = ({ data, location }) => {
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
+          <div className="row text-center">
+            <div className="col-12">
+              <GatsbyImage
+                className="w-full my-4"
+                image={getImage(post.frontmatter.featuredImage)}
+                alt="Article"
+                backgroundColor={false}
+              />
+            </div>
+            <h1 itemProp="headline">{post.frontmatter.title}</h1>
+            <p>{post.frontmatter.date}</p>
+          </div>
         </header>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
@@ -34,7 +48,7 @@ const BlogPostTemplate = ({ data, location }) => {
         />
         <hr />
         <footer>
-          <Bio author={post.frontmatter.author}/>
+          <Bio author={post.frontmatter.author} />
         </footer>
       </article>
       <nav className="blog-post-nav">
@@ -91,6 +105,11 @@ export const pageQuery = graphql`
         }
         date(formatString: "MMMM DD, YYYY")
         description
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(width: 667)
+          }
+        }
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
