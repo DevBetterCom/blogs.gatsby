@@ -2,6 +2,8 @@
 
 Source code for a multi author devBetter blog built with Gatsby.
 
+**[blogs.devbetter.com](https://blogs.devbetter.com/)**
+
 ## Prerequisites
 
 The Gatsby CLI is required to run this project. ([install instructions](https://www.gatsbyjs.com/docs/tutorial/part-0/#gatsby-cli))
