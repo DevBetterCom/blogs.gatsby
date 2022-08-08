@@ -53,7 +53,7 @@ const BlogIndex = ({ data, location }) => {
                         <div className="col-12 p-2">
                           <Link to={post.fields.slug} itemProp="url">
                             <GatsbyImage
-                              className="w-full"
+                              className="w-full mb-2"
                               image={getImage(post.frontmatter.featuredImage)}
                               alt="Article"
                               backgroundColor={false}
