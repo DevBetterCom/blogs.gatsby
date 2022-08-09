@@ -33,7 +33,7 @@ Add a folder using `hyphen-case-of-title` as its name to `blog/`. In the folder,
 - date
 - description
 - featuredImage **(case sensitive!)**
-- category
+- category (currently one of these values: "announcements", "career-advancement", "software-development")
 
 ### Images
 
