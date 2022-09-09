@@ -18,3 +18,7 @@
   name: Philippe Vaillancourt
   bio: Phil likes to code. Phil likes to read. Phil likes to read about code. Occasionally, Phil also writes about code.
   image: ../../src/images/authors/PhilVaillancourt.jpg
+- id: zalenix
+  name: Saurav Bhattacharya
+  bio: Saurav is interested in making well-desingned software. In his free time, he researches about software design, well-being practices, spritituality and Nondualism.
+  image: ../../src/images/authors/SauravBhattacharya.jpg
