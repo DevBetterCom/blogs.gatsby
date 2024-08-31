@@ -22,3 +22,7 @@
   name: Saurav Bhattacharya
   bio: Saurav is interested in making well-designed software. In his free time, he researches about software design, well-being practices, spirituality and Nondualism.
   image: ../../src/images/authors/SauravBhattacharya.jpg
+- id: davidc
+  name: David Chaparro
+  bio: David enjoys writing code that simplifies things for both users and developers. He's a big fan of domain-driven design, event sourcing, and exploring Azure's capabilities. He loves learning from others, sharing ideas, and finding better ways to do things. For David, coding is all about making a difference and helping everyone work smarter and faster.
+  image: ../../src/images/authors/DavidChaparro.jpg
