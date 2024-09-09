@@ -2,87 +2,104 @@
 title: "Introducing Modulith"
 author: davidc
 date: "2022-08-03T00:00:00.000Z"
-description: "A templating tool for Modular Monoliths in .Net"
+description: "Introducing Modulith: A Tool for Modular Monoliths"
 featuredImage: ./modulith-cover.png
 category: software-development
 ---
 
-# Introducing Modulith: Simplify Modular Monolith Development
+# Introducing Modulith: A Tool for Modular Monoliths
 
-If you’ve been following software architecture trends, you know that microservices often steal the spotlight. But for many teams, a **modular monolith** can offer a more straightforward, yet still powerful, approach to building large applications. That’s where **Modulith** comes in—an open-source project designed to streamline the creation and management of modular monoliths.
+If you’ve been following software architecture trends, you know that microservices often steal the spotlight. However, for many teams, a **modular monolith** can offer a more straightforward yet still powerful approach to building large applications. But are you tired of wrestling with complex microservices or monolithic architectures that quickly turn into a maintenance nightmare? **Modulith** is here to change the game—an open-source project designed to streamline the developmentof modular monoliths, making your development process more efficient and enjoyable.
 
 ## What’s a Modular Monolith and Why Should You Care?
 
-A modular monolith is a single application divided into distinct, well-defined modules, each encapsulating specific functionality. This makes the codebase easier to understand, maintain, and test. Unlike a tightly coupled BBM (Bug Ball of Mud) monolith, a modular monolith offers clear boundaries and separation of concerns without the overhead of managing distributed systems like microservices.
+A modular monolith is a single application divided into distinct, well-defined modules, each encapsulating specific functionality. This structure makes the codebase easier to understand, maintain, and test. Unlike a tightly coupled "Big Ball of Mud" monolith, a modular monolith offers clear boundaries and separation of concerns without the overhead of managing distributed systems like microservices.
 
-While microservices achieve boundaries through physical separation, a modular monolith avoids operational overhead by using a single solution for all modules. To achieve modularity, we can use .NET projects and C# access modifiers to separate a module’s public interface (Contracts) from its internals. This ensures that other modules can’t reference internal types.
+While microservices achieve boundaries through physical separation, a modular monolith avoids operational overhead by using a single solution for all modules. As Ardalis teaches in his [Modular Monoliths course](https://dometrain.com/bundle/from-zero-to-hero-modular-monoliths-in-dotnet/), you can use .NET projects and C# access modifiers to separate a module’s public interface (Contracts) from its internal types. This ensures that other modules can only reference the public interface of a module.
 
-Let's imagine we are developing an e-commerce application called, you guessed it, eShop. We identified at least a Payments and a Shipments module. Let's use projects and acccess modifiers to build a modular monolith.
+### A Practical Example
 
-First, we create a separate project for the Payments module internals and declare all its types as ```internal```. This way other modules will not be able to reference the module's internal types. 
+Imagine you’re developing an e-commerce application called eShop. Initially, it starts as a single project, but as you add more features, it becomes a tangled web of dependencies—a classic "Big Ball of Mud." To avoid this, you decide to transform eShop into a modular monolith, starting with the Payments and Shipments modules.
 
-```
-eShop/
-    |--- eShop.EntryPoint <-- Original Project (Contains the program.cs, appsettings, etc.)
-    |--- eShop.PaymentsModule
-            |--- eShop.Payments.Contracts
-```
+First, we create a separate project for the Payments module internals and declare all its types as `internal`. This way, other modules will not be able to reference the module's internal types.
 
-Then, we create a ```Contracts``` project to define the public interface so that other modules can depend on our ```Contracts``` module and not be concerned with our internal project. This ensures that references between modules are only introduced through well-defined, public interfaces, enforcing clear boundaries and eliminating the risk of unwanted dependencies.
+Then, we create a `Contracts` project to define the public interface so that other modules can depend on our `Contracts` module and not be concerned with our internal project. This ensures that references between modules are only introduced through well-defined, public interfaces, enforcing clear boundaries and eliminating the risk of unwanted dependencies.
+
+We can also extend modularity to our tests by introducing a single test project per module. This way, we can organize our tests to target a specific module and endup with the following solution structure:
 
 ```
 eShop/
-    |--- eShop.EntryPoint <-- Original Project
-    |--- eShop.PaymentsModule
-            |--- eShop.Payments.Internal
-            |--- eShop.Payments.Contracts
+    ├── eShop.EntryPoint <-- Original Project (Contains the program.cs, appsettings, etc.)
+    └── eShop.PaymentsModule
+        ├── eShop.Payments.Internal
+        ├── eShop.Payments.Contracts
+        ├── eShop.Payments.Tests
 ```
 
-We can also extend modularity to our tests by introducing a single test project per module. This way we can also organize our tests to target a specific module.
+The next step is to set the appropriate project dependencies.
 
-```
-eShop/
-    |--- eShop.EntryPoint <-- Original Project (Contains the program.cs, appsettings, etc.)
-    |--- eShop.PaymentsModule
-            |--- eShop.Payments.Internal
-            |--- eShop.Payments.Contracts
-            |--- eShop.Payments.Tests
-```
+- The `Entry` project should reference the `Internal` project of every module to ensure endpoints and services are properly registered in the application builder.
 
-We have achieved modularity and not inccurred in any of the challenges of a distributed application. We have one solution, one repo, and all modules can be tested independently and debugged in a single solution. 
+- The `Internal` project should also reference the `Contracts` project so that other modules can depend on the types it exposes.
 
-However we did so at the expense of creating 3 projects per module. And we didn't even mentioned setting the correct reference between prrojects. How can we make this process faster and repeateable?
+- The `Test` projects should depend on the `Internal` project they are meant to test.
+
+- If another module, like `Shipments`, needs to communicate with the `Payments` module, it would reference the `eShop.Payments.Contracts` project.
+
+Adding these references and suposing we have that second `Payments` module will lead to a solution like this:
+
+![project references](references.png)
+
+We’ve set the path for eShop to become a maintainable and scalable application, all within a single solution and repository. However, creating three projects per module manually is time-consuming and can discourage team members from adding new modules. How can we make this process faster and repeatable for everyone working on eShop?
 
 ## Enter Modulith
 
-Developed in conjucntion with [Ardalis](https://github.com/ardalis), Modulith automates much of the setup you’d typically have to do manually when building a modular monolith.
+Developed in conjunction with [Ardalis](https://github.com/ardalis), Modulith automates much of the setup you’d typically have to do manually when building modular monoliths.
 
-With Modulith, you can add a new module to your project with a single command. It takes care of creating the necessary projects, adding the correct dependencies, and registering services for you. This allows you to focus on what really matters, building features. This is specially useful when working in a team. Modulith provides an easy way to set up new modules without worrying about the repetitive tasks involved in setting them up.
+With Modulith, you can add a new module to your project with a single command. It takes care of creating the necessary projects, adding the correct dependencies, and registering services for you. This allows you to focus on what really matters: building features. This is especially useful when working in a team. Modulith provides an easy way to set up new modules without worrying about the repetitive tasks involved in setting them up.
 
-### Let's see this in action
+You can install Modulith by running:
+
+```bash
+dotnet new install Ardalis.Modulith
+```
 
 Creating a new modular solution is as simple as running:
-```ps
+
+```bash
 dotnet new modulith -n eShop --with-module Payments
 ```
-This creates a solution, __eShop__, with a single module __Payments__. Then you can add new modules running
-```ps
-cd eShop # CD into the solution folder
+
+This creates a solution, **eShop**, with a single module, **Payments**. Then you can add new modules by running:
+
+```bash
+cd eShop # Change directory into the solution folder
 
 dotnet new modulith --add basic-module --with-name Shipments --to eShop
 ```
-That's it now you have a solution with two modules. You can add new modules by running the last command and changing the ```--with-name``` to the name of your new module. But what was created exactly?
 
-Glad you asked, these three commands created 9 projects. Now that is a lot of projects. 
+That's it! Now you have a solution with two modules. You can add new modules by running the last command and changing the `--with-name` to the name of your new module. But what exactly was created?
 
-And that’s just the beginning. **Modulith** has plans to offer various types of module templates to suit different architectural needs. For example, you might create one module using a 3-layer architecture, another using a Domain-Driven Design (DDD) template, and yet another that’s optimized for reading from a document database for reporting purposes. These templates will provide flexibility while maintaining consistency across your application.
+Glad you asked. These three commands created eight projects and added the correct references between them. The resulting solution structure looks like this:
 
-## Beyond Modules: Item Templates
+```
+eShop/
+    ├── eShop <-- Entrypoint
+    ├── eShop.Shared
+    ├── Payments
+    |   ├── eShop.Payments <- Internal project
+    |   ├── eShop.Payments.Contracts
+    |   ├── eShop.Payments.Tests
+    ├── Shipments
+        ├── eShop.Shipments <- Internal project
+        ├── eShop.Shipments.Contracts
+        ├── eShop.Shipments.Tests
+```
 
-But **Modulith** doesn’t stop at creating entire modules. A second set of features focuses on **item templates**. These templates don’t create whole modules but instead add a set of classes to help you implement specific patterns within your modules. For instance, one such item template could generate a set of CRUD endpoints and a repository for a new domain entity. While you’ll still need to tailor the generated code to your specific needs, the initial creation of classes will be incredibly fast and consistent, reducing repetitive tasks.
+### Stay Tuned for More
 
-## Why Use Modulith?
+**Modulith** is not stopping at creating entire modules. A second set of features will focus on **item templates**. These templates don’t create whole modules but instead add a set of classes to help you implement specific patterns within your modules. For instance, one such item template could generate a set of CRUD endpoints and a repository for a new domain entity. Another module might create the classes needed for a materialized view for inter module communication.   While you’ll still need to tailor the generated code to your specific needs, the initial creation of classes will be incredibly fast and consistent, reducing repetitive tasks and encouraging team members to reuse known patterns.
 
-If you’re a developer who wants to spend less time on boilerplate setup and more time on building valuable features, **Modulith** is for you. It simplifies the creation and management of modular monoliths, letting you focus on your application’s logic instead of the intricacies of project structure and dependency management.
+Ready for more Head over to the [Modulith GitHub repository](https://github.com/ardalis/modulith) to get started. Your feedback is invaluable—whether you’re contributing a new module, reporting a bug, or sharing your success story.
 
-Ready to dive in? Head over to the [Modulith GitHub repository](https://github.com/ardalis/modulith) to get started. Whether you’re new to modular monoliths or a seasoned pro, Modulith can help you build better systems, faster.
+This is just the beginning. In our upcoming posts, we’ll dive deeper into advanced features of Modulith, including custom templates for UI, Domain-Driven Design, and item templates.
